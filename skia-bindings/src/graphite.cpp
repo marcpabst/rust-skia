@@ -129,6 +129,10 @@ extern "C" void C_ContextOptions_Construct(skgpu::graphite::ContextOptions* unin
 // gpu/graphite/Recorder.h
 //
 
+extern "C" void C_Recorder_delete(skgpu::graphite::Recorder* recorder) {
+    delete recorder;
+}
+
 extern "C" skgpu::graphite::Recording* C_Recorder_snap(skgpu::graphite::Recorder* self) {
     return self->snap().release();
 }
@@ -278,6 +282,8 @@ extern "C" SkImage* C_SkImages_TextureFromYUVATexturesGraphite(
             *yuvaTextures,
             sp(imageColorSpace)).release();
 }
+
+
 
 //
 // gpu/graphite/mtl/MtlBackendContext.h

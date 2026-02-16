@@ -63,24 +63,16 @@ pub fn wrap_backend_texture(
     recorder: &mut Recorder,
     backend_texture: &BackendTexture,
     color_type: ColorType,
-    color_space: Option<&ColorSpace>,
+    color_space: impl Into<Option<crate::ColorSpace>>,
     surface_props: Option<&SurfaceProps>,
 ) -> Option<Surface> {
-    let color_space_ptr = color_space
-        .map(|cs| unsafe { cs.native_mut_force() as *mut _ })
-        .unwrap_or(std::ptr::null_mut());
-
-    let surface_props_ptr = surface_props
-        .map(|props| props.native() as *const _)
-        .unwrap_or(std::ptr::null());
-
     let surface_ptr = unsafe {
         sb::C_SkSurfaces_WrapBackendTextureGraphite(
             recorder.native_mut(),
             backend_texture.native(),
             color_type.into_native(),
-            color_space_ptr,
-            surface_props_ptr,
+            color_space.into().into_ptr_or_null(),
+            surface_props.native_ptr_or_null(),
         )
     };
 

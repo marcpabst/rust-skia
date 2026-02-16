@@ -8,7 +8,7 @@ use super::prelude::*;
 pub struct Ios;
 
 // m119: The use of value() in `effects/SkImageFilters.h` requires iOS12
-const MIN_IOS_VERSION: &str = "12";
+const MIN_IOS_VERSION: &str = "14";
 const MIN_IOS_VERSION_M1: &str = "14";
 // m100: XCode 13.2 fails to build with version 13
 const MIN_IOS_VERSION_CATALYST: &str = "14";
